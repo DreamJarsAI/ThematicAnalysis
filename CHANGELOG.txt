@@ -1,0 +1,19 @@
+Change Log
+==========
+
+
+0.0.4 (05/07/2024)
+-----------------------------
+- Made updates due to OpenAI's changes
+
+0.0.3 (05/07/2024)
+-----------------------------
+- Edited __init__ file to diagnose errors
+
+0.0.2 (05/07/2024)
+-----------------------------
+- Updated setup.py errors from setup.py.
+
+0.0.1 (05/07/2024)
+-------------------
+- First Release

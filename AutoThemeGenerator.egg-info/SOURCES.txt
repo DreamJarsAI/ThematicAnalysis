@@ -1,0 +1,12 @@
+CHANGELOG.txt
+LICENSE.txt
+MANIFEST.in
+README.md
+setup.py
+AutoThemeGenerator/AutoThemeGenerator.py
+AutoThemeGenerator/__init__.py
+AutoThemeGenerator.egg-info/PKG-INFO
+AutoThemeGenerator.egg-info/SOURCES.txt
+AutoThemeGenerator.egg-info/dependency_links.txt
+AutoThemeGenerator.egg-info/requires.txt
+AutoThemeGenerator.egg-info/top_level.txt
