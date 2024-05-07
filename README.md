@@ -1,7 +1,7 @@
 `AutoThemeGenerator` is a package that allows you to perform qualitative analysis using OpenAI's GPT models.
 
 ## User inputs
-Users are only required to specify the folder location where their interview transcripts are stored. Accepted formats of transcripts include `PDF`, `.docx`, and `.txt` (prefered).`AutoThemeGenerator` assumes that each document is a transcript of one interviewed participant.
+Users are only required to specify the folder location where their interview transcripts are stored. Accepted formats of transcripts include `PDF`, `.docx`, and `.txt` (prefered). `AutoThemeGenerator` assumes that each document is a transcript of one interviewed participant.
 
 ## Requirements
 ### Required packages
@@ -77,7 +77,5 @@ print(overall_synthesized_themes)
 ```
 You can now view the themes in the form of a topic sentence, a detailed explaination and a relevant quote
 
-
 ## Citation
-
 Y Yang, C Alba, W Xi, M Li, C Wang, A Jami, R An. "GPT Models Can Perform Thematic Analysis in Public Health Studies, Akin to Qualitative Researchers" Working paper. 

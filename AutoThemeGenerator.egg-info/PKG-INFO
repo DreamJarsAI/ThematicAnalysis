@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: AutoThemeGenerator
-Version: 0.0.5
+Version: 0.0.6
 Summary: Performing thematic analysis with OpenAI's GPT-4 models
 Author: Charles Alba
 Author-email: alba@wustl.edu
@@ -23,7 +23,7 @@ Requires-Dist: tqdm
 `AutoThemeGenerator` is a package that allows you to perform qualitative analysis using OpenAI's GPT models.
 
 ## User inputs
-Users are only required to specify the folder location where their interview transcripts are stored. Accepted formats of transcripts include `PDF`, `.docx`, and `.txt` (prefered).`AutoThemeGenerator` assumes that each document is a transcript of one interviewed participant.
+Users are only required to specify the folder location where their interview transcripts are stored. Accepted formats of transcripts include `PDF`, `.docx`, and `.txt` (prefered). `AutoThemeGenerator` assumes that each document is a transcript of one interviewed participant.
 
 ## Requirements
 ### Required packages
