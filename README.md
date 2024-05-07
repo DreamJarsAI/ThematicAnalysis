@@ -1,5 +1,7 @@
 `AutoThemeGenerator` is a package that allows you to perform qualitative analysis using OpenAI's GPT models.
 
+File is available at PyPi: [pypi.org/project/AutoThemeGenerator/](https://pypi.org/project/AutoThemeGenerator/)
+
 ## User inputs
 Users are only required to specify the folder location where their interview transcripts are stored. Accepted formats of transcripts include `PDF`, `.docx`, and `.txt` (prefered). `AutoThemeGenerator` assumes that each document is a transcript of one interviewed participant.
 
