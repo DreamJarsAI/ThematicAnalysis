@@ -531,6 +531,9 @@ def save_results_to_json(results, file_path):
     results (list): The analysis results to save.
     file_path (str): The path where the JSON file will be saved.
     """
+    directory = os.path.dirname(file_path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     with open(file_path, 'w', encoding = 'utf-8') as file:
         json.dump(results, file, ensure_ascii = False, indent = 0)
 

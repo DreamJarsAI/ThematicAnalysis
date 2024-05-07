@@ -2,6 +2,10 @@ Change Log
 ==========
 
 
+0.0.5 (05/07/2024)
+-----------------------------
+- Changes to the code to gracefully handle the lack of the folder in which the themes would be saved.
+
 0.0.4 (05/07/2024)
 -----------------------------
 - Made updates due to OpenAI's changes

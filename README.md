@@ -1,5 +1,8 @@
 `AutoThemeGenerator` is a package that allows you to perform qualitative analysis using OpenAI's GPT models.
 
+## User inputs
+Users are only required to specify the folder location where their interview transcripts are stored. Accepted formats of transcripts include `PDF`, `.docx`, and `.txt` (prefered).`AutoThemeGenerator` assumes that each document is a transcript of one interviewed participant.
+
 ## Requirements
 ### Required packages
 To use `AutoThemeGenerator`, you are required to have the following packages installed:  
@@ -22,19 +25,24 @@ pip install openai docx tqdm nltk nltk.tokenize python-docx textract zipfile shu
 ### OpenAI API key
 You also need an OpenAI key to be able to use this package. If you do not have one, you can apply for an OpenAI API key at [platform.openai.com/api-keys](https://platform.openai.com/api-keys). 
 
-
 ## Installation
 To install in python, simply do the following: 
-
 ```bash
 pip install AutoThemeGenerator
 ```
 
 ## Quick Start
-Here we provide a quick example on how you can execute GPT4QualitativeAnalysis to conveniently perform qualitative analysis from your transcript. For details towards each of the package's functions and parameters, refer to the [documention](documention.md). 
-
+Here we provide a quick example on how you can execute `AutoThemeGenerator` to conveniently perform qualitative analysis from your transcript. For details towards each of the package's functions and parameters, refer to the [documention](documention.md). 
 ```python
-from AutoThemeGenerator import *
+from AutoThemeGenerator import analyze_and_synthesize_transcripts
+
+# Specify the folders containing your transcript
+# This is the folder containing transcripts in .docx, .PDF or .txt format
+directory_path = "my_transcript_folder"
+# specify your OpenAI API key
+api_key = "<insert your API key>"
+# specify the folder you wish to save your themes. 
+save_results_path = "folder_of_my_saved_results"
 
 # specify the context of your study
 context = (
@@ -57,16 +65,6 @@ survey_script = (
     "... ..." 
     )
 
-
-
-# Specify the folders containing your transcript
-directory_path = "my_transcript_folder"
-# specify your OpenAI API key
-api_key = "<insert your API key>"
-# specify the folder you wish to save your themes. 
-save_results_path = "folder_of_my_saved_results"
-
-
 # Analyze and synthesize transcripts
 initial_themes, individual_synthesized_themes, overall_synthesized_themes = \
 analyze_and_synthesize_transcripts(
@@ -74,15 +72,12 @@ analyze_and_synthesize_transcripts(
     research_questions = research_questions, script = survey_script,
     api_key = api_key, save_results_path = save_results_path)
 
-
-# optional (load your saved themes)
-overall_synthesized_themes = load_results_from_json(
-    os.path.join(save_results_path, "themes_overall.json"))
-
 # display your study-level themes
 print(overall_synthesized_themes)
 ```
-
 You can now view the themes in the form of a topic sentence, a detailed explaination and a relevant quote
 
 
+## Citation
+
+Y Yang, C Alba, W Xi, M Li, C Wang, A Jami, R An. "GPT Models Can Perform Thematic Analysis in Public Health Studies, Akin to Qualitative Researchers" Working paper. 
