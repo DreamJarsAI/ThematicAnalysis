@@ -2,6 +2,10 @@ Change Log
 ==========
 
 
+0.1.2 (05/08/2024)
+-----------------------------
+- Removed zipfile from required packages
+
 0.1.1 (05/08/2024)
 -----------------------------
 - Fixed typos

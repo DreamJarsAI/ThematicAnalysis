@@ -5,5 +5,4 @@ requests==2.31.0
 python-docx
 docx
 tqdm
-zipfile
 requests
