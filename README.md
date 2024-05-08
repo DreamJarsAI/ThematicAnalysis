@@ -97,6 +97,6 @@ You can now view the themes in the form of a topic sentence, a detailed explaina
 ## Citation
 Y Yang, C Alba, W Xi, M Li, C Wang, A Jami, R An. "GPT Models Can Perform Thematic Analysis in Public Health Studies, Akin to Qualitative Researchers" Working paper. 
 
-# Questions:
+# Questions?
 
 Contact me at [alba@wusl.edu](mailto:alba@wusl.edu)
