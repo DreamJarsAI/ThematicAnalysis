@@ -3,4 +3,7 @@ openai==1.12.0
 nltk==3.8.1
 requests==2.31.0
 python-docx
+docx
 tqdm
+zipfile
+requests

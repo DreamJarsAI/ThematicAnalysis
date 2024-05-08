@@ -1,20 +1,7 @@
 AutoThemeGenerator is a package that allows you to perform thematic analysis in qualitative studies using OpenAI's GPT models. 
 
 
-<p align="center">
-  <a href="https://cja5553.github.io/ReadTheDocs_AutoThemeGenerator/">
-    <img src="https://img.shields.io/badge/Documentation-v0.0.7-orange" alt="Documentation">
-  </a>
-  <a href="https://pypi.org/project/AutoThemeGenerator/">
-    <img src="https://img.shields.io/badge/pypi_package-v0.0.7-brightgreen" alt="pypi package">
-  </a>
-  <a href="https://github.com/cja5553/AutoThemeGenerator">
-    <img src="https://img.shields.io/badge/github_source_code-source_code?logo=github&color=green" alt="GitHub Source Code">
-  </a>
-  <a href="https://colab.research.google.com/drive/1BoAI-QNL-yL8j8hUJ3K8cJkbyp4spoQ3">
-    <img src="https://img.shields.io/badge/-Colab_Example-grey?logo=google&logoColor=F9AB00" alt="Colab Example">
-  </a>
-</p>
+[![Documentation](https://img.shields.io/badge/Documentation-v0.1.0-orange)](https://cja5553.github.io/ReadTheDocs_AutoThemeGenerator/) [![pypi package](https://img.shields.io/badge/pypi_package-v0.1.0-brightgreen)](https://pypi.org/project/AutoThemeGenerator/) [![GitHub Source Code](https://img.shields.io/badge/github_source_code-source_code?logo=github&color=green)](https://github.com/cja5553/AutoThemeGenerator) [![Colab Example](https://img.shields.io/badge/-Colab_Example-grey?logo=google&logoColor=F9AB00)](https://colab.research.google.com/drive/1BoAI-QNL-yL8j8hUJ3K8cJkbyp4spoQ3)
 
 
 ## User inputs
@@ -49,7 +36,7 @@ pip install AutoThemeGenerator
 ```
 
 ## Quick Start
-Here we provide a quick example on how you can execute `AutoThemeGenerator` to conveniently perform qualitative analysis from your transcript. For details towards each of the package's functions and parameters, refer to the [documention](documention.md). 
+Here we provide a quick example on how you can execute `AutoThemeGenerator` to conveniently perform qualitative analysis from your transcript. For details towards each of the package's functions and parameters, refer to the [documention](https://cja5553.github.io/ReadTheDocs_AutoThemeGenerator/). 
 ```python
 from AutoThemeGenerator import analyze_and_synthesize_transcripts
 
