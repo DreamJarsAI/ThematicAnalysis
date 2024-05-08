@@ -20,7 +20,7 @@ setup(
     long_description_content_type="text/markdown",
     long_description=long_description,
     packages=find_packages(),
-    install_requires=['textract', 'openai==1.12.0', 'nltk==3.8.1', 'requests==2.31.0','python-docx','tqdm'],
+    install_requires=['textract', 'openai==1.12.0', 'nltk==3.8.1', 'requests==2.31.0','python-docx','docx','tqdm','zipfile','requests'],
     keywords=['GPT models', 'Thematic analysis', 'OpenAI', 'Qualitiative studies', 'transcripts', 'interviews'],
     classifiers=[
         "Development Status :: 1 - Planning",

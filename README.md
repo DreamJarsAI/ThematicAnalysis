@@ -1,6 +1,21 @@
-`AutoThemeGenerator` is a package that allows you to perform qualitative analysis using OpenAI's GPT models.
+AutoThemeGenerator is a package that allows you to perform thematic analysis in qualitative studies using OpenAI's GPT models. 
 
-File is available at PyPi: [pypi.org/project/AutoThemeGenerator/](https://pypi.org/project/AutoThemeGenerator/)
+
+<p align="center">
+  <a href="https://cja5553.github.io/ReadTheDocs_AutoThemeGenerator/">
+    <img src="https://img.shields.io/badge/Documentation-v0.0.7-orange" alt="Documentation">
+  </a>
+  <a href="https://pypi.org/project/AutoThemeGenerator/">
+    <img src="https://img.shields.io/badge/pypi_package-v0.0.7-brightgreen" alt="pypi package">
+  </a>
+  <a href="https://github.com/cja5553/AutoThemeGenerator">
+    <img src="https://img.shields.io/badge/github_source_code-source_code?logo=github&color=green" alt="GitHub Source Code">
+  </a>
+  <a href="https://colab.research.google.com/drive/1BoAI-QNL-yL8j8hUJ3K8cJkbyp4spoQ3">
+    <img src="https://img.shields.io/badge/-Colab_Example-grey?logo=google&logoColor=F9AB00" alt="Colab Example">
+  </a>
+</p>
+
 
 ## User inputs
 Users are only required to specify the folder location where their interview transcripts are stored. Accepted formats of transcripts include `PDF`, `.docx`, and `.txt` (prefered). `AutoThemeGenerator` assumes that each document is a transcript of one interviewed participant.
@@ -81,3 +96,7 @@ You can now view the themes in the form of a topic sentence, a detailed explaina
 
 ## Citation
 Y Yang, C Alba, W Xi, M Li, C Wang, A Jami, R An. "GPT Models Can Perform Thematic Analysis in Public Health Studies, Akin to Qualitative Researchers" Working paper. 
+
+# Questions:
+
+Contact me at [alba@wusl.edu](mailto:alba@wusl.edu)
