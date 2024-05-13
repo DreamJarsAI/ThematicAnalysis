@@ -595,7 +595,13 @@ def analyze_and_synthesize_transcripts(
     list of lists: A list where each sublist contains a synthesized chunk of
     overall study themes.
     """
-
+    citation='''
+    If you find this package useful, please cite: 
+    C Alba, Y Yang, C Wang, M Li, W Xi, A Jami, R An. (2024) 
+    GPT Models Can Perform Thematic Analysis in Public Health Studies, Akin to Qualitative Researchers. 
+    Working Paper. 
+    '''
+    print(citation)
     # Record the start time
     start_time = time.time()
 
