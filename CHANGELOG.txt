@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+0.1.5 (05/17/2024)
+-----------------------------
+- adding load_results_from_json to the set of functions that can be called. 
+- made changes to the readme
+
 0.1.4 (05/13/2024)
 -----------------------------
 - System crashed during upload, so reuploading
