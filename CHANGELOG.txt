@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+0.1.7 (05/17/2024)
+-----------------------------
+- Added a requirement on readme that "pip<24.1" due to compatability issues with textract
+
 0.1.5 (05/17/2024)
 -----------------------------
 - adding load_results_from_json to the set of functions that can be called. 
