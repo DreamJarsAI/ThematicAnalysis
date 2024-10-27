@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+0.1.8 (10/27/2024)
+-----------------------------
+- corrected download_example function
+
 0.1.7 (05/17/2024)
 -----------------------------
 - Added a requirement on readme that "pip<24.1" due to compatability issues with textract
