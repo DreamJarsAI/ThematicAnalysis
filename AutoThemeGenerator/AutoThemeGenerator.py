@@ -682,7 +682,7 @@ def move_contents_to_parent(source, destination):
         d = os.path.join(destination, item)
         shutil.move(s, d)
 
-def download_example(folder_name="example_transcripts",url="https://sites.wustl.edu/alba/files/2024/04/book_empathy_club-02119c68e92058fe.zip"):
+def download_example(folder_name="example_transcripts", url="https://sites.wustl.edu/alba/files/2024/04/book_empathy_club-02119c68e92058fe.zip"):
     """
     Function to download example transcripts from a url
 
@@ -690,12 +690,13 @@ def download_example(folder_name="example_transcripts",url="https://sites.wustl.
     folder_name (str): Name of folder where the example transcripts will be contained in exisiting directory
     url (str): download url of the transcripts, should end in .zip format. 
     """
-    citation='''
+    citation = '''
     Henderson, R., Hagen, M. G., Zaidi, Z., Dunder, V., Maska, E., & Nagoshi, Y. (2020). 
     Self-care perspective taking and empathy in a student-faculty book club in the United States. 
     Journal of Educational Evaluation for Health Professions, 17.
     '''
-    print("Citation: ",citation)
+    print("Citation:", citation)
+    
     # Get the current working directory
     current_directory = os.getcwd()
     # Path for the new folder
@@ -703,10 +704,12 @@ def download_example(folder_name="example_transcripts",url="https://sites.wustl.
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
 
-    # Download the file
+    # Download the file with headers
     local_zip_path = os.path.join(current_directory, "downloaded_file.zip")
+    headers = {'User-Agent': 'Mozilla/5.0'}
     print(f"Downloading file to {local_zip_path}...")
-    response = requests.get(url, stream=True)
+    
+    response = requests.get(url, headers=headers, stream=True)
     if response.status_code == 200:
         with open(local_zip_path, 'wb') as f:
             f.write(response.content)
@@ -715,14 +718,15 @@ def download_example(folder_name="example_transcripts",url="https://sites.wustl.
         with zipfile.ZipFile(local_zip_path, 'r') as zip_ref:
             zip_ref.extractall(folder_path)
         os.remove(local_zip_path)
+        
+        # Move contents to parent folder
         source_folder = os.path.join(folder_path, "book_empathy_club")
         move_contents_to_parent(source_folder, folder_path)
+        
         if os.path.exists(source_folder) and not os.listdir(source_folder):
             os.rmdir(source_folder)
         else:
             print("Note: Source folder is not empty or does not exist.")
-        print(f"Files downloaded to {local_zip_path}...")
+        print(f"Files downloaded to {folder_path}...")
     else:
         print("Failed to download the file. Status code:", response.status_code)
-
-    
