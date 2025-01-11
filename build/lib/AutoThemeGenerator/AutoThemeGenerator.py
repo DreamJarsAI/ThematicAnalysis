@@ -597,9 +597,11 @@ def analyze_and_synthesize_transcripts(
     """
     citation='''
     If you find this package useful, please cite: 
-    C Alba, Y Yang, C Wang, M Li, W Xi, A Jami, R An. (2024) 
-    GPT Models Can Perform Thematic Analysis in Public Health Studies, Akin to Qualitative Researchers. 
-    Working Paper. 
+    Yuyi Yang, Charles Alba, Chenyu Wang, Xi Wang, Jami Anderson, and Ruopeng An. 
+    "GPT Models Can Perform Thematic Analysis in Public Health Studies, Akin to Qualitative Researchers." 
+    Journal of Social Computing, vol. 5, no. 4, (2024): 293-312. 
+    doi: https://doi.org/10.23919/JSC.2024.0024 
+
     '''
     print(citation)
     # Record the start time
