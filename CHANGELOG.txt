@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+0.2.0 (03/06/2024)
+-----------------------------
+- Made changes to setup.py in-lieu of deprecation of Proxies from OpenAI 
+
 0.1.8 (10/27/2024)
 -----------------------------
 - corrected download_example function

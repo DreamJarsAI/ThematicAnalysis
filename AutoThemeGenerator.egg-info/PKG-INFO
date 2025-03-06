@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: AutoThemeGenerator
-Version: 0.1.9
+Version: 0.2.1
 Summary: Performing thematic analysis with OpenAI's GPT-4 models
 Author: Charles Alba
 Author-email: alba@wustl.edu
@@ -15,18 +15,16 @@ Classifier: Operating System :: Microsoft :: Windows
 Description-Content-Type: text/markdown
 License-File: LICENSE.txt
 Requires-Dist: textract
-Requires-Dist: openai==1.12.0
+Requires-Dist: openai
 Requires-Dist: nltk==3.8.1
-Requires-Dist: requests==2.31.0
 Requires-Dist: python-docx
 Requires-Dist: docx
 Requires-Dist: tqdm
-Requires-Dist: requests
 
 AutoThemeGenerator is a package that allows you to perform thematic analysis in qualitative studies using OpenAI's GPT models. 
 
 
-[![Documentation](https://img.shields.io/badge/Documentation-v0.1.9-orange)](https://cja5553.github.io/ReadTheDocs_AutoThemeGenerator/) [![pypi package](https://img.shields.io/badge/pypi_package-v0.1.9-brightgreen)](https://pypi.org/project/AutoThemeGenerator/) [![GitHub Source Code](https://img.shields.io/badge/github_source_code-source_code?logo=github&color=green)](https://github.com/cja5553/AutoThemeGenerator) [![Colab Example](https://img.shields.io/badge/-Colab_Example-grey?logo=google&logoColor=F9AB00)](https://colab.research.google.com/drive/1BoAI-QNL-yL8j8hUJ3K8cJkbyp4spoQ3)
+[![Documentation](https://img.shields.io/badge/Documentation-v0.2.1-orange)](https://cja5553.github.io/ReadTheDocs_AutoThemeGenerator/) [![pypi package](https://img.shields.io/badge/pypi_package-v0.2.1-brightgreen)](https://pypi.org/project/AutoThemeGenerator/) [![GitHub Source Code](https://img.shields.io/badge/github_source_code-source_code?logo=github&color=green)](https://github.com/cja5553/AutoThemeGenerator) [![Colab Example](https://img.shields.io/badge/-Colab_Example-grey?logo=google&logoColor=F9AB00)](https://colab.research.google.com/drive/1BoAI-QNL-yL8j8hUJ3K8cJkbyp4spoQ3)
 
 
 ## User inputs

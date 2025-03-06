@@ -5,7 +5,7 @@ import textract
 import pprint
 from openai import OpenAI
 import json
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 nltk.download('punkt')
