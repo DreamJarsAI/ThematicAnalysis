@@ -4,8 +4,9 @@
     <div class="col-lg-8 col-xl-6">
       <h1 class="mb-3">Analyzing transcripts</h1>
       <p class="text-muted">We're running the thematic analysis. This page will update with real-time progress and redirect when results are ready.</p>
-      <div class="progress mb-3" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-live="polite">
-        <div id="analysisProgress" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%">0%</div>
+      <div id="analysisStatus" class="alert alert-info d-flex align-items-center gap-2 mb-3" role="status" aria-live="polite">
+        <div id="statusSpinner" class="spinner-border spinner-border-sm" role="presentation"></div>
+        <span id="statusMessage">Starting analysis...</span>
       </div>
       <div class="card">
         <div class="card-header">Status</div>
@@ -18,7 +19,9 @@
   <script>
     const statusUrl = "{{ url_for('main.job_status', job_id=job_id) }}";
     const resultsUrl = "{{ url_for('main.results', job_id=job_id) }}";
-    const progressBar = document.getElementById('analysisProgress');
+    const statusContainer = document.getElementById('analysisStatus');
+    const statusSpinner = document.getElementById('statusSpinner');
+    const statusMessage = document.getElementById('statusMessage');
     const logContainer = document.getElementById('progressLog');
     let displayedEvents = 0;
     let polling = true;
@@ -36,38 +39,79 @@
         updateProgress(payload);
         if (payload.status === 'completed') {
           polling = false;
-          progressBar.classList.remove('progress-bar-animated');
+          updateStatus('completed', 'Analysis complete. Redirecting to results...');
           window.location.href = resultsUrl;
           return;
         }
         if (payload.status === 'failed') {
           polling = false;
-          progressBar.classList.remove('progress-bar-animated');
-          progressBar.classList.add('bg-danger');
-          progressBar.textContent = 'Failed';
-          appendMessage(payload.message || 'Analysis failed.');
-          if (payload.error) {
+          updateStatus('failed', payload.message || 'Analysis failed.');
+          if (payload.error && payload.error !== (payload.message || '')) {
             appendMessage(payload.error);
           }
           return;
         }
       } catch (error) {
         console.error(error);
+        updateStatus('warning', 'Connection issue detected. Retrying...');
         appendMessage('Connection issue detected. Retrying...');
       }
       setTimeout(pollStatus, 1500);
     }
 
     function updateProgress(payload) {
-      const progress = Math.max(0, Math.min(1, payload.progress || 0));
-      const percentage = Math.round(progress * 100);
-      progressBar.style.width = `${percentage}%`;
-      progressBar.textContent = `${percentage}%`;
+      updateStatus(payload.status, payload.message);
       if (Array.isArray(payload.events)) {
         const newEvents = payload.events.slice(displayedEvents);
         newEvents.forEach(event => appendMessage(event.message));
         displayedEvents = payload.events.length;
       }
+    }
+
+    function updateStatus(status, message) {
+      const normalized = status === 'failed'
+        ? 'failed'
+        : status === 'completed'
+          ? 'completed'
+          : status === 'warning'
+            ? 'warning'
+            : 'running';
+      const fallback = normalized === 'failed'
+        ? 'Analysis failed.'
+        : normalized === 'completed'
+          ? 'Analysis complete.'
+          : normalized === 'warning'
+            ? 'Connection issue detected. Retrying...'
+            : 'Working on your analysis...';
+      statusMessage.textContent = message || fallback;
+
+      const classes = [
+        'alert',
+        'd-flex',
+        'align-items-center',
+        'gap-2',
+        'mb-3',
+      ];
+
+      switch (normalized) {
+        case 'failed':
+          classes.push('alert-danger');
+          statusSpinner.classList.add('d-none');
+          break;
+        case 'completed':
+          classes.push('alert-success');
+          statusSpinner.classList.add('d-none');
+          break;
+        case 'warning':
+          classes.push('alert-warning');
+          statusSpinner.classList.remove('d-none');
+          break;
+        default:
+          classes.push('alert-info');
+          statusSpinner.classList.remove('d-none');
+      }
+
+      statusContainer.className = classes.join(' ');
     }
 
     function appendMessage(message) {

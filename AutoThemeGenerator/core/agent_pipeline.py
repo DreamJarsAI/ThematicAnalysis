@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from typing import Callable, Sequence
 
 from agents import Agent, Runner
+from agents.models.openai_provider import OpenAIProvider
+from agents.run import RunConfig
 from nltk.tokenize import word_tokenize
 
 from .chunking import ChunkingConfig, chunk_transcript
@@ -165,6 +167,7 @@ class AutoThemeAgentPipeline:
         )
         self._concurrency_limit = max(1, concurrency_limit)
         self._progress_tracker = _ProgressTracker(progress_callback)
+        self._model_provider = OpenAIProvider(api_key=api_key)
 
     def run(self) -> ThematicAnalysisResult:
         self._validate_prompt_lengths()
@@ -305,7 +308,12 @@ class AutoThemeAgentPipeline:
         async def _run_prompt(index: int, prompt: str) -> tuple[int, str]:
             async with semaphore:
                 agent = self._create_agent()
-                result = await Runner.run(agent, input=prompt)
+                run_config = RunConfig(model_provider=self._model_provider)
+                result = await Runner.run(
+                    agent,
+                    input=prompt,
+                    run_config=run_config,
+                )
                 output = result.final_output or ""
                 return index, output.strip()
 

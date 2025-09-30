@@ -18,6 +18,8 @@ from flask import (
     url_for,
 )
 
+from openai import AuthenticationError
+
 from AutoThemeGenerator.core.agent_pipeline import (
     AutoThemeAgentPipeline,
     ProgressUpdate,
@@ -190,6 +192,12 @@ def _run_analysis_job(
             )
         except TokenLimitError as exc:
             job_store.mark_failed(job_id, str(exc))
+        except AuthenticationError as exc:
+            job_store.mark_failed(
+                job_id,
+                "OpenAI authentication failed. Please verify your API key and try again.",
+            )
+            app.logger.exception("OpenAI authentication failure: %s", exc)
         except Exception as exc:  # noqa: BLE001
             job_store.mark_failed(
                 job_id,
