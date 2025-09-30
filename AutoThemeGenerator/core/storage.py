@@ -34,40 +34,39 @@ def write_analysis_outputs(
     files: list[StoredFile] = []
     for index, name in enumerate(participant_names):
         safe_name = _slugify(name) or f"participant_{index + 1}"
-        chunk_file = output_dir / f"{safe_name}_chunk_themes.txt"
-        chunk_file.write_text(
-            _format_chunk_outputs(
-                chunk_texts=result.chunk_texts[index],
+
+        chunks_file = output_dir / f"{safe_name}_chunks.txt"
+        chunks_file.write_text(
+            _format_chunks(result.chunk_texts[index]),
+            encoding="utf-8",
+        )
+        files.append(
+            StoredFile(
+                label=f"Transcript chunks — {name or safe_name}",
+                name=chunks_file.name,
+                path=chunks_file,
+            )
+        )
+
+        themes_file = output_dir / f"{safe_name}_themes.txt"
+        themes_file.write_text(
+            _format_participant_themes(
                 chunk_outputs=result.chunk_outputs[index],
+                participant_summaries=result.participant_summaries[index],
             ),
             encoding="utf-8",
         )
         files.append(
             StoredFile(
-                label=f"Chunk-level themes — {name or safe_name}",
-                name=chunk_file.name,
-                path=chunk_file,
+                label=f"Themes — {name or safe_name}",
+                name=themes_file.name,
+                path=themes_file,
             )
         )
 
-        summary_file = output_dir / f"{safe_name}_participant_summary.txt"
-        summary_file.write_text(
-            _format_list(
-                result.participant_summaries[index], heading="Participant themes"
-            ),
-            encoding="utf-8",
-        )
-        files.append(
-            StoredFile(
-                label=f"Synthesized participant themes — {name or safe_name}",
-                name=summary_file.name,
-                path=summary_file,
-            )
-        )
-
-    overall_file = output_dir / "overall_study_themes.txt"
+    overall_file = output_dir / "study_level_themes.txt"
     overall_file.write_text(
-        _format_list(result.overall_summaries, heading="Overall study themes"),
+        _format_overall_themes(result.overall_summaries),
         encoding="utf-8",
     )
     files.append(
@@ -93,37 +92,63 @@ def create_archive(record: AnalysisStorageRecord) -> Path:
     return Path(archive_path)
 
 
-def _format_chunk_outputs(
-    *,
-    chunk_texts: Sequence[str],
-    chunk_outputs: Sequence[str],
-) -> str:
-    sections: list[str] = []
-    for index, (chunk_text, output) in enumerate(
-        zip(chunk_texts, chunk_outputs, strict=True), start=1
-    ):
-        sections.append(
-            "\n".join(
-                [
-                    f"Chunk {index} — original excerpt:",
-                    chunk_text.strip(),
-                    "",
-                    "Generated themes:",
-                    output.strip(),
-                ]
-            )
-        )
+def _format_chunks(chunk_texts: Sequence[str]) -> str:
+    if not chunk_texts:
+        return "No transcript chunks were produced."
+
+    sections = []
+    for index, chunk in enumerate(chunk_texts, start=1):
+        sections.append(f"Chunk {index}\n{chunk.strip()}")
     return "\n\n".join(sections)
 
 
-def _format_list(items: Sequence[str], *, heading: str) -> str:
-    if not items:
-        return f"{heading}\nNo themes were produced."
+def _format_participant_themes(
+    *,
+    chunk_outputs: Sequence[str],
+    participant_summaries: Sequence[str],
+) -> str:
+    sections = [
+        _format_numbered_section(
+            heading="Chunk-specific themes",
+            items=chunk_outputs,
+            item_label="Chunk",
+            empty_message="No chunk-specific themes were produced.",
+        ),
+        _format_numbered_section(
+            heading="Participant themes",
+            items=participant_summaries,
+            item_label="Theme block",
+            empty_message="No participant-level themes were produced.",
+        ),
+    ]
+    return "\n\n".join(sections)
 
-    sections = [heading]
+
+def _format_overall_themes(themes: Sequence[str]) -> str:
+    return _format_numbered_section(
+        heading="Study-level themes",
+        items=themes,
+        item_label="Theme block",
+        empty_message="No study-level themes were produced.",
+    )
+
+
+def _format_numbered_section(
+    *,
+    heading: str,
+    items: Sequence[str],
+    item_label: str,
+    empty_message: str,
+) -> str:
+    if not items:
+        return f"{heading}\n{empty_message}"
+
+    lines = [heading]
     for index, item in enumerate(items, start=1):
-        sections.append(f"\nTheme block {index}\n{item.strip()}")
-    return "\n".join(sections)
+        lines.append("")
+        lines.append(f"{item_label} {index}")
+        lines.append(item.strip())
+    return "\n".join(lines)
 
 
 def _slugify(value: str) -> str:
