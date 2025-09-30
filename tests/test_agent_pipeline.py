@@ -2,6 +2,7 @@ import pytest
 
 from AutoThemeGenerator.core.agent_pipeline import (
     AutoThemeAgentPipeline,
+    ProgressUpdate,
     ThematicAnalysisConfig,
     TokenLimitError,
 )
@@ -13,7 +14,7 @@ def test_pipeline_runs_with_mocked_batches(monkeypatch):
         ("participant_two", "Another person speaks here. They add more content."),
     ]
 
-    async def fake_execute_batch(self, prompts):
+    async def fake_execute_batch(self, prompts, *, stage=None):
         return [f"response-{i}" for i, _ in enumerate(prompts, start=1)]
 
     monkeypatch.setattr(
@@ -41,6 +42,44 @@ def test_pipeline_runs_with_mocked_batches(monkeypatch):
     assert all(result.chunk_outputs)
     assert len(result.participant_summaries) == len(transcripts)
     assert result.overall_summaries
+
+
+def test_pipeline_reports_progress(monkeypatch):
+    transcripts = [("participant_one", "Sentence one. Sentence two.")]
+
+    async def fake_execute_batch(self, prompts, *, stage=None):
+        return [f"response-{i}" for i, _ in enumerate(prompts, start=1)]
+
+    monkeypatch.setattr(
+        AutoThemeAgentPipeline,
+        "_execute_batch",
+        fake_execute_batch,
+    )
+
+    updates: list[ProgressUpdate] = []
+
+    config = ThematicAnalysisConfig(
+        model="gpt-5-nano",
+        chunk_size=10,
+        chunk_overlap=2,
+        context="Background",
+        research_questions="Research question",
+        script=None,
+        transcripts=transcripts,
+        combine_tokens_individual=50,
+        combine_tokens_overall=50,
+    )
+
+    pipeline = AutoThemeAgentPipeline(
+        api_key="test-key",
+        config=config,
+        progress_callback=updates.append,
+    )
+    pipeline.run()
+
+    assert updates
+    assert any(update.stage == "chunk_analysis" for update in updates)
+    assert updates[-1].progress <= 1.0
 
 
 def _build_config(**overrides):

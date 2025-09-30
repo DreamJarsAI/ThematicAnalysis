@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="row">
+    <div class="col-lg-8 col-xl-6">
+      <h1 class="mb-3">Analyzing transcripts</h1>
+      <p class="text-muted">We're running the thematic analysis. This page will update with real-time progress and redirect when results are ready.</p>
+      <div class="progress mb-3" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-live="polite">
+        <div id="analysisProgress" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%">0%</div>
+      </div>
+      <div class="card">
+        <div class="card-header">Status</div>
+        <div class="card-body" id="progressLog" style="max-height: 18rem; overflow-y: auto" aria-live="polite">
+          <p class="mb-1">Starting analysis...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const statusUrl = "{{ url_for('main.job_status', job_id=job_id) }}";
+    const resultsUrl = "{{ url_for('main.results', job_id=job_id) }}";
+    const progressBar = document.getElementById('analysisProgress');
+    const logContainer = document.getElementById('progressLog');
+    let displayedEvents = 0;
+    let polling = true;
+
+    async function pollStatus() {
+      if (!polling) {
+        return;
+      }
+      try {
+        const response = await fetch(statusUrl, {cache: 'no-store'});
+        if (!response.ok) {
+          throw new Error('Failed to fetch progress');
+        }
+        const payload = await response.json();
+        updateProgress(payload);
+        if (payload.status === 'completed') {
+          polling = false;
+          progressBar.classList.remove('progress-bar-animated');
+          window.location.href = resultsUrl;
+          return;
+        }
+        if (payload.status === 'failed') {
+          polling = false;
+          progressBar.classList.remove('progress-bar-animated');
+          progressBar.classList.add('bg-danger');
+          progressBar.textContent = 'Failed';
+          appendMessage(payload.message || 'Analysis failed.');
+          if (payload.error) {
+            appendMessage(payload.error);
+          }
+          return;
+        }
+      } catch (error) {
+        console.error(error);
+        appendMessage('Connection issue detected. Retrying...');
+      }
+      setTimeout(pollStatus, 1500);
+    }
+
+    function updateProgress(payload) {
+      const progress = Math.max(0, Math.min(1, payload.progress || 0));
+      const percentage = Math.round(progress * 100);
+      progressBar.style.width = `${percentage}%`;
+      progressBar.textContent = `${percentage}%`;
+      if (Array.isArray(payload.events)) {
+        const newEvents = payload.events.slice(displayedEvents);
+        newEvents.forEach(event => appendMessage(event.message));
+        displayedEvents = payload.events.length;
+      }
+    }
+
+    function appendMessage(message) {
+      if (!message) {
+        return;
+      }
+      const entry = document.createElement('p');
+      entry.className = 'mb-1';
+      entry.textContent = message;
+      logContainer.appendChild(entry);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    pollStatus();
+  </script>
+{% endblock %}
