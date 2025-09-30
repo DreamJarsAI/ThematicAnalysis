@@ -24,7 +24,14 @@ def chunk_transcript(text: str, config: ChunkingConfig) -> list[str]:
 
 
 def _token_length(text: str) -> int:
-    return len(word_tokenize(text))
+    return len(_safe_tokenize(text))
+
+
+def _safe_tokenize(text: str) -> list[str]:
+    try:
+        return word_tokenize(text)
+    except LookupError:
+        return text.split()
 
 
 __all__ = ["ChunkingConfig", "chunk_transcript"]

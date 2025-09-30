@@ -115,7 +115,14 @@ def create_prompt(
 
 
 def count_prompt_tokens(*segments: str) -> int:
-    return sum(len(word_tokenize(segment)) for segment in segments if segment)
+    return sum(len(_safe_tokenize(segment)) for segment in segments if segment)
+
+
+def _safe_tokenize(text: str) -> list[str]:
+    try:
+        return word_tokenize(text)
+    except LookupError:
+        return text.split()
 
 
 __all__ = ["create_prompt", "count_prompt_tokens"]
