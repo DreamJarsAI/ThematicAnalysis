@@ -1,6 +1,8 @@
-from nltk.tokenize import word_tokenize
-
-from AutoThemeGenerator.core.chunking import ChunkingConfig, chunk_transcript
+from AutoThemeGenerator.core.chunking import (
+    ChunkingConfig,
+    chunk_transcript,
+    _token_length,
+)
 
 
 def test_chunk_transcript_token_lengths_respected():
@@ -13,4 +15,4 @@ def test_chunk_transcript_token_lengths_respected():
 
     assert len(chunks) >= 2
     for chunk in chunks:
-        assert len(word_tokenize(chunk)) <= config.chunk_size + 1
+        assert _token_length(chunk) <= config.chunk_size + 1

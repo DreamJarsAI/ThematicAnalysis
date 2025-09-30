@@ -6,6 +6,7 @@ from flask import Flask
 
 from .config import Config
 from .extensions import ensure_nltk_data
+from .services.analysis_jobs import AnalysisJobStore
 
 
 def create_app(config_class: type[Config] | None = None) -> Flask:
@@ -15,6 +16,8 @@ def create_app(config_class: type[Config] | None = None) -> Flask:
     app.config.from_object(config_class or Config())
 
     ensure_nltk_data()
+
+    app.extensions["analysis_jobs"] = AnalysisJobStore()
 
     _prepare_directories(app)
     _register_blueprints(app)
