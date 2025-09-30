@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="row">
+    <div class="col-lg-10 col-xl-8">
+      <h1 class="mb-4">Automated Thematic Analysis</h1>
+      <p class="text-muted">Upload one transcript file per interviewee (.txt, .pdf, .docx), choose your preferred GPT model and chunk size, and optionally provide study details to guide the analysis.</p>
+      <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="api_key" class="form-label">OpenAI API key</label>
+          <input type="password" class="form-control" id="api_key" name="api_key" required>
+          <div class="form-text">Your key is only used for this analysis session.</div>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label for="model" class="form-label">Model</label>
+            <select class="form-select" id="model" name="model">
+              {% for model in models %}
+                <option value="{{ model }}" {% if model == default_model %}selected{% endif %}>{{ model }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="chunk_size" class="form-label">Chunk size (tokens)</label>
+            <select class="form-select" id="chunk_size" name="chunk_size">
+              {% for size in chunk_sizes %}
+                <option value="{{ size }}" {% if size == default_chunk %}selected{% endif %}>{{ size }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="study_context" class="form-label">Study background (optional)</label>
+          <textarea class="form-control" id="study_context" name="study_context" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="research_questions" class="form-label">Research questions / objectives (optional)</label>
+          <textarea class="form-control" id="research_questions" name="research_questions" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="script" class="form-label">Interview script (optional)</label>
+          <textarea class="form-control" id="script" name="script" rows="3"></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="transcripts" class="form-label">Upload transcripts</label>
+          <input class="form-control" type="file" id="transcripts" name="transcripts" multiple accept=".txt,.pdf,.docx" required>
+          <div class="form-text">Provide separate files for each participant.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Run analysis</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

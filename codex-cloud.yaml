@@ -1,0 +1,22 @@
+version: "1.0"
+project:
+  name: AutoThemeGenerator
+  description: Flask UI for agentic thematic analysis using OpenAI GPT-4/5 models.
+workspace:
+  root: .
+  python_version: "3.12"
+setup:
+  commands:
+    - pip install -r requirements-dev.txt
+lint:
+  commands:
+    - ruff check .
+    - black --check .
+    - isort --check-only --profile black .
+test:
+  commands:
+    - pytest
+run:
+  command: python run.py
+  environment:
+    FLASK_ENV: development

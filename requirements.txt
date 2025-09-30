@@ -1,0 +1,10 @@
+Flask>=3.1
+openai>=1.109
+openai-agents>=0.3
+langchain-text-splitters>=0.3
+nltk==3.8.1
+python-docx>=1.1
+PyPDF2>=3.0
+python-dotenv>=1.0
+requests>=2.31
+tqdm>=4.66
